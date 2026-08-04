@@ -112,24 +112,30 @@ export function SiteHeader() {
       </div>
 
       <div
-        className={`overflow-hidden transition-[max-height,opacity] duration-500 ease-out md:hidden ${
-          menuOpen
-            ? "max-h-40 border-t border-line/70 bg-ivory/95 opacity-100 backdrop-blur-md"
-            : "max-h-0 opacity-0"
+        className={`grid transition-[grid-template-rows] duration-500 ease-out md:hidden ${
+          menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >
-        <nav className="flex flex-col px-5 py-2">
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setMenuOpen(false)}
-              className="border-b border-line/60 py-4 font-serif text-xl tracking-wide text-espresso last:border-0"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <div className="overflow-hidden">
+          <nav
+            className={`border-t px-5 py-2 transition-opacity duration-500 md:hidden ${
+              menuOpen
+                ? "border-line/70 bg-ivory/95 opacity-100 backdrop-blur-md"
+                : "opacity-0"
+            }`}
+          >
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="block border-b border-line/60 py-4 font-serif text-xl tracking-wide text-espresso last:border-0"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
       </div>
     </header>
   );
