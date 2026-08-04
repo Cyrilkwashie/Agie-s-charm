@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@theme {
+  /* Surfaces — warm ivory, never white */
+  --color-ivory: #faf6f0;
+  --color-cream: #f2e9dd;
+  --color-sand: #ece0d1;
+
+  /* Primary — warm camel */
+  --color-camel: #c8a97e;
+  --color-camel-deep: #a8875a;
+
+  /* Ink — espresso, never black */
+  --color-espresso: #3a2e26;
+  --color-espresso-soft: #6d5c4e;
+
+  /* Accent — muted terracotta + blush */
+  --color-terracotta: #a95c43;
+  --color-terracotta-deep: #8c4831;
+  --color-blush: #e6cec3;
+
+  /* Hairlines */
+  --color-line: #e3d7c6;
+
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-karla), "Karla", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-espresso);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-blush);
+    color: var(--color-espresso);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-camel-deep);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  /* Hide scrollbar on the mobile product gallery without losing scroll */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-size: 0.6875rem;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    color: color-mix(in srgb, var(--color-espresso) 55%, transparent);
+  }
+
+  /* Underline that draws itself in on hover — used for text links */
+  .quiet-link {
+    position: relative;
+    display: inline-block;
+  }
+
+  .quiet-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.2em;
+    height: 1px;
+    width: 100%;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .quiet-link:hover::after,
+  .quiet-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
