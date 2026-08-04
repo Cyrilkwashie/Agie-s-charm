@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { contact } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "About",
@@ -52,10 +53,15 @@ export default function AboutPage() {
 
           <div className="mt-12 space-y-4 border-t border-line pt-10">
             <a
-              href="mailto:hello@agiescharm.com"
+              href={contact.snapUrl}
               className="quiet-link block text-[1rem] text-terracotta"
+              rel="noreferrer noopener"
+              target="_blank"
             >
-              hello@agiescharm.com
+              Snap: {contact.snap}
+            </a>
+            <a href={contact.phoneUrl} className="quiet-link block text-[1rem] text-terracotta">
+              {contact.phone}
             </a>
             <p className="text-[0.95rem] leading-relaxed text-espresso-soft">
               Orders leave within two working days, wrapped in tissue. Free returns for fourteen

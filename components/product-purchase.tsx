@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useCart } from "./cart-context";
 import { SIZES, formatPrice, type Product, type Size } from "@/lib/products";
+import { contact } from "@/lib/contact";
 
 export function ProductPurchase({ product }: { product: Product }) {
   const { add } = useCart();
@@ -62,8 +63,12 @@ export function ProductPurchase({ product }: { product: Product }) {
 
         <p className="mt-4 text-[0.85rem] leading-relaxed text-espresso-soft">
           {product.fit}. Stuck between two?{" "}
-          <a href="mailto:hello@agiescharm.com" className="quiet-link text-terracotta">
-            Ask me
+          <a href={contact.snapUrl} className="quiet-link text-terracotta" rel="noreferrer noopener" target="_blank">
+            Snap me
+          </a>{" "}
+          or{" "}
+          <a href={contact.phoneUrl} className="quiet-link text-terracotta">
+            call
           </a>
           .
         </p>

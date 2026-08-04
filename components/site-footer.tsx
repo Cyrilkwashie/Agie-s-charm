@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { contact } from "@/lib/contact";
 
 export function SiteFooter() {
   return (
@@ -16,22 +17,25 @@ export function SiteFooter() {
           </div>
 
           <div className="flex flex-col gap-3 text-[0.85rem] text-espresso-soft md:items-end">
+            <Link href="/" className="quiet-link w-fit hover:text-espresso">
+              Home
+            </Link>
             <Link href="/shop" className="quiet-link w-fit hover:text-espresso">
               Shop
             </Link>
             <Link href="/about" className="quiet-link w-fit hover:text-espresso">
               About
             </Link>
-            <a href="mailto:hello@agiescharm.com" className="quiet-link w-fit hover:text-espresso">
-              hello@agiescharm.com
-            </a>
             <a
-              href="https://instagram.com"
+              href={contact.snapUrl}
               className="quiet-link w-fit hover:text-espresso"
               rel="noreferrer noopener"
               target="_blank"
             >
-              Instagram
+              Snap: {contact.snap}
+            </a>
+            <a href={contact.phoneUrl} className="quiet-link w-fit hover:text-espresso">
+              {contact.phone}
             </a>
           </div>
         </div>

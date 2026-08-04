@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ProductGrid } from "./product-grid";
+import { contact } from "@/lib/contact";
 import {
   categories,
   onTheRail,
@@ -38,29 +39,32 @@ export function ShopCatalog({
 
   return (
     <div>
-      <div className="rounded-sm bg-cream/70 px-4 py-5 md:px-6 md:py-6">
-        <p className="text-[0.72rem] tracking-[0.2em] text-espresso-soft uppercase">
-          Filter by
-        </p>
-        <div className="no-scrollbar mt-4 flex gap-2 overflow-x-auto pb-0.5 md:flex-wrap md:overflow-visible">
-          {filters.map((filter) => {
-            const selected = active === filter.value;
-            return (
-              <button
-                key={filter.value}
-                type="button"
-                onClick={() => setActive(filter.value)}
-                className={`h-10 shrink-0 rounded-full px-5 text-[0.78rem] tracking-[0.12em] transition-all duration-300 ${
-                  selected
-                    ? "bg-espresso text-ivory shadow-[0_8px_24px_-12px_rgba(58,46,38,0.45)]"
-                    : "border border-line/80 bg-ivory/80 text-espresso-soft hover:border-camel-deep hover:text-espresso"
-                }`}
-              >
-                {filter.label}
-              </button>
-            );
-          })}
-        </div>
+      <div className="grid grid-cols-2 border border-line sm:flex sm:flex-wrap sm:border-0">
+        {filters.map((filter, index) => {
+          const selected = active === filter.value;
+          const isLeftCol = index % 2 === 0;
+
+          return (
+            <button
+              key={filter.value}
+              type="button"
+              onClick={() => setActive(filter.value)}
+              className={`min-h-11 border-b border-line px-2 py-3 text-[0.68rem] tracking-[0.1em] transition-colors duration-300 sm:min-h-12 sm:border-0 sm:border-b-2 sm:px-5 sm:py-3.5 sm:text-[0.78rem] sm:tracking-[0.12em] ${
+                isLeftCol ? "border-r sm:border-r-0" : ""
+              } ${
+                index >= filters.length - (filters.length % 2 || 2)
+                  ? "border-b-0 sm:border-b-2"
+                  : ""
+              } ${
+                selected
+                  ? "bg-espresso/[0.04] text-espresso sm:border-b-espresso sm:bg-transparent"
+                  : "text-espresso-soft hover:text-espresso sm:border-b-transparent"
+              }`}
+            >
+              {filter.label}
+            </button>
+          );
+        })}
       </div>
 
       <div className="mt-10 border-b border-line/80 pb-7">
@@ -83,7 +87,7 @@ export function ShopCatalog({
               Nothing here just now.
             </p>
             <p className="mx-auto mt-3 max-w-sm text-[0.95rem] leading-relaxed text-espresso-soft">
-              The rail changes often. Browse everything else, or write to me if you had your heart
+              The rail changes often. Browse everything else, or message me if you had your heart
               set on something.
             </p>
             <button
@@ -97,20 +101,26 @@ export function ShopCatalog({
         )}
       </div>
 
-      <div className="mt-20 rounded-sm border border-line/70 bg-cream/40 px-6 py-8 text-center md:px-10 md:py-10">
+      <div className="mt-20 border-t border-line pt-10 text-center md:pt-12">
         <p className="font-serif text-[1.35rem] italic text-camel-deep">
           Stuck between two sizes?
         </p>
         <p className="mx-auto mt-3 max-w-md text-[0.95rem] leading-relaxed text-espresso-soft">
-          Write to me and I&rsquo;ll tell you which one I&rsquo;d send. No algorithms — just someone
-          who knows how the clothes fit.
+          Snap or call me — I&rsquo;ll tell you which one I&rsquo;d send.
         </p>
-        <Link
-          href="/about"
-          className="quiet-link mt-5 inline-block text-[0.85rem] tracking-[0.1em] text-terracotta"
-        >
-          Say hello
-        </Link>
+        <div className="mt-5 flex flex-col items-center gap-3 text-[0.88rem] tracking-[0.06em]">
+          <a
+            href={contact.snapUrl}
+            className="quiet-link text-terracotta"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Snap: {contact.snap}
+          </a>
+          <a href={contact.phoneUrl} className="quiet-link text-terracotta">
+            {contact.phone}
+          </a>
+        </div>
       </div>
     </div>
   );
